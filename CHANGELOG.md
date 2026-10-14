@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+- Fix the sign of the lower bound term in the primal infeasibility check (dense and sparse)
+
 ## [0.8.1] - 2026-10-27
 
 ## Added

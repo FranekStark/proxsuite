@@ -494,9 +494,10 @@ global_primal_residual_infeasibility(VectorViewMut<T> ATdy,
   }
   ruiz.unscale_dual_residual_in_place(ATdy);
   ruiz.unscale_dual_residual_in_place(CTdz);
+  // -l^T [-dz]_+ = +l^T negative_part(dz), as negative_part(dz) = min(dz, 0)
   T lower_bound_1 =
     dy.to_eigen().dot(qp_scaled.b.to_eigen()) +
-    helpers::positive_part(dz.to_eigen()).dot(qp_scaled.u.to_eigen()) -
+    helpers::positive_part(dz.to_eigen()).dot(qp_scaled.u.to_eigen()) +
     helpers::negative_part(dz.to_eigen()).dot(qp_scaled.l.to_eigen());
   ruiz.unscale_dual_in_place_eq(dy);
   ruiz.unscale_dual_in_place_in(dz);

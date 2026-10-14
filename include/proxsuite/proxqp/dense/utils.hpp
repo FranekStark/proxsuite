@@ -295,9 +295,10 @@ global_primal_residual_infeasibility(
   }
   ruiz.unscale_dual_residual_in_place(ATdy);
   ruiz.unscale_dual_residual_in_place(CTdz);
+  // -l^T [-dz]_+ = +l^T negative_part(dz), as negative_part(dz) = min(dz, 0)
   T lower_bound_1 = dy.to_eigen().dot(qpwork.b_scaled) +
                     helpers::positive_part(dz.to_eigen().head(qpmodel.n_in))
-                      .dot(qpwork.u_scaled) -
+                      .dot(qpwork.u_scaled) +
                     helpers::negative_part(dz.to_eigen().head(qpmodel.n_in))
                       .dot(qpwork.l_scaled);
   ruiz.unscale_dual_in_place_eq(dy);
@@ -308,7 +309,7 @@ global_primal_residual_infeasibility(
     // helpers::positive_part(dz.to_eigen().tail(qpmodel.dim)).dot(qpmodel.u) -
     //          helpers::negative_part(dz.to_eigen().tail(qpmodel.dim)).dot(qpmodel.l);
     lower_bound_1 += helpers::positive_part(dz.to_eigen().tail(qpmodel.dim))
-                       .dot(qpwork.u_box_scaled) -
+                       .dot(qpwork.u_box_scaled) +
                      helpers::negative_part(dz.to_eigen().tail(qpmodel.dim))
                        .dot(qpwork.l_box_scaled);
     ruiz.unscale_box_dual_in_place_in(
