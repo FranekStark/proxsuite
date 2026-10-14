@@ -66,6 +66,7 @@ proxsuite_add_test(sparse_qp_solve)
 proxsuite_add_test(sparse_qp_wrapper)
 proxsuite_add_test(sparse_qp)
 proxsuite_add_test(sparse_ruiz_equilibration)
+proxsuite_add_test(primal_infeasibility)
 
 if(BUILD_WITH_OPENMP_SUPPORT)
   proxsuite_add_test(parallel_qp_solve LINK_LIBRARIES proxsuite-parallel)
