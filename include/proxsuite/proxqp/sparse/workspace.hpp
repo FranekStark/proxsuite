@@ -44,7 +44,8 @@ refactorize(Workspace<T, I>& work,
   T mu_in_neg(0);
   switch (settings.merit_function_type) {
     case MeritFunctionType::GPDAL:
-      mu_in_neg = -settings.alpha_gpdal * results.info.mu_in;
+      // mu_in_neg = -settings.alpha_gpdal * results.info.mu_in;
+      mu_in_neg = -results.info.mu_in;
       break;
     case MeritFunctionType::PDAL:
       mu_in_neg = -results.info.mu_in;
